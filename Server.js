@@ -65,8 +65,7 @@ apy.put('/users/:id', async (req, resp) => {
     await prisma.user.update({
         where: {
 
-            id: req.params.id
-
+           id: req.params.id
         }, 
                   // Aqui vamos atualizar o nosso user, com os dados que vamos receber do body da nossa requisição.
         data: {
