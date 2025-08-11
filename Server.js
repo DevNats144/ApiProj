@@ -11,11 +11,6 @@ apy.use(Cors())
 
 
 
-apy.get('/', (req, res) => {
-  res.send('API está funcionando!');
-});
-
-
 // Rota Post //
 
 apy.post("/userss", async (req, resp) => {
