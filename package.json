@@ -4,11 +4,8 @@
   "type": "module",
   "main": "Server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node Server.js",
-    "postinstall": "prisma generate"
-
-  },
+  "start": "npx prisma generate && node Server.js"
+},
   "keywords": [],
   "author": "Nat's",
   "license": "ISC",
