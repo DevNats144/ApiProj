@@ -6,7 +6,7 @@
   "engines": { "node": ">=18" },
   "scripts": {
     "start": "prisma migrate deploy || echo \"sem prisma\" && node Server.js",
-    "postinstall": "prisma generate || echo \"sem prisma\""
+    "postinstall": " echo \"sem prisma\""
   },
   "author": "Nat's",
   "license": "ISC",
