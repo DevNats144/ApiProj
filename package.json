@@ -3,17 +3,21 @@
   "version": "1.0.0",
   "type": "module",
   "main": "Server.js",
-  "engines": { "node": ">=18" },
   "scripts": {
-    "start": "prisma migrate deploy || echo \"sem prisma\" && node Server.js",
-    "postinstall": " echo \"sem prisma\""
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node erver.js",
+    "postinstall": "prisma generate"
+
   },
+  "keywords": [],
   "author": "Nat's",
   "license": "ISC",
+  "description": "",
   "dependencies": {
     "@prisma/client": "^6.10.1",
     "cors": "^2.8.5",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "react-router-dom": "^7.8.0"
   },
   "devDependencies": {
     "prisma": "^6.10.1"
