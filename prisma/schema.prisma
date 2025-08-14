@@ -11,7 +11,7 @@ generator client {
   url      = env("DATABASE_URL")
 }
 
-// Aqui abaixo ficam os seus models
+
 model User {
   id    String @id @default(auto()) @map("_id") @db.ObjectId
   name  String
