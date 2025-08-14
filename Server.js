@@ -42,7 +42,7 @@ app.get("/user", async (req, res) => {
       where: {
         name: req.query.name,
         email: req.query.email,
-        age: req.query.age ? Number(req.query.age) : null
+        age: req.query.age ? Number(req.query.age) : undefined
       }
     });
   } else {
