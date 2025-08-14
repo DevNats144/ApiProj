@@ -28,7 +28,7 @@ app.post("/userss", async (req, res) => {
     data: {
       email: req.body.email,
       name: req.body.name,
-      age: req.body.age
+      age: req.query.age ? Number(req.query.age) : null
     }
   });
   res.status(201).json({ message: "User criado com sucesso!" });
@@ -58,7 +58,7 @@ app.put('/users/:id', async (req, res) => {
     data: {
       email: req.body.email,
       name: req.body.name,
-      age: req.body.age
+      age: req.query.age ? Number(req.query.age) : null
     }
   });
   res.status(200).json({ message: "User atualizado com sucesso!" });
