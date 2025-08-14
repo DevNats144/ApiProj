@@ -5,15 +5,16 @@ generator client {
   binaryTargets = ["native", "windows", "debian-openssl-3.0.x"]
 }
 
-datasource db {
-  provider = "postgresql" // ou "mysql" ou "sqlite" — depende do seu banco
+
+  datasource db {
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
 // Aqui abaixo ficam os seus models
 model User {
-  id        Int      @id @default(autoincrement())
-  name      String
-  email     String   @unique
-  createdAt DateTime @default(now())
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  name  String
+  email String @unique
 }
+
