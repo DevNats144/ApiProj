@@ -4,7 +4,23 @@ import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient();
 const app = express();
 
-app.use(express.json());
+app.use(express.json()); // Para parsear JSON
+app.use(express.urlencoded({ extended: true })); // Para parsear formulários
+
+// 2. Middleware de sanitização (ADICIONE AQUI)
+app.use((req, res, next) => {
+  // Sanitiza query params (GET)
+  if (req.query.age) {
+    req.query.age = parseInt(req.query.age.toString().replace(/"/g, ''), 10);
+  }
+  
+  // Sanitiza body params (POST/PUT)
+  if (req.body?.age) {
+    req.body.age = parseInt(req.body.age.toString().replace(/"/g, ''), 10);
+  }
+  
+  next();
+});
 
 // CORS: permite seu site no Vercel
 const allowedOrigins = ["https://gitprojects.vercel.app"];
