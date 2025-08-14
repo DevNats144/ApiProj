@@ -54,7 +54,7 @@ app.get("/user", async (req, res) => {
 // Rota PUT - atualizar usuário
 app.put('/users/:id', async (req, res) => {
   await prisma.user.update({
-    where: { id: Number(req.params.id) },
+    where: { id:(req.params.id) },
     data: {
       email: req.body.email,
       name: req.body.name,
