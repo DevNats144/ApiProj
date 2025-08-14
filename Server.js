@@ -6,6 +6,22 @@ const app = express();
 
 app.use(express.json());
 
+
+
+app.use((req, res, next) => {
+  // Sanitiza query params
+  if (req.query.age) {
+    req.query.age = parseInt(String(req.query.age).replace(/"/g, ''), 10);
+  }
+  
+  // Sanitiza body params
+  if (req.body.age) {
+    req.body.age = parseInt(String(req.body.age).replace(/"/g, ''), 10);
+  }
+  
+  next();
+});
+
 // CORS: permite seu site no Vercel
 const allowedOrigins = ["https://gitprojects.vercel.app"];
 app.use(cors({
