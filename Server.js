@@ -28,7 +28,7 @@ app.post("/userss", async (req, res) => {
     data: {
       email: req.body.email,
       name: req.body.name,
-      age: req.query.age ? Number(req.query.age) : null
+      age: req.query.age ? Number(req.query.age) : undefined
     }
   });
   res.status(201).json({ message: "User criado com sucesso!" });
@@ -42,7 +42,7 @@ app.get("/user", async (req, res) => {
       where: {
         name: req.query.name,
         email: req.query.email,
-        age: req.query.age ? Number(req.query.age) : null
+        age: req.query.age ? Number(req.query.age) : undefined
       }
     });
   } else {
@@ -58,7 +58,7 @@ app.put('/users/:id', async (req, res) => {
     data: {
       email: req.body.email,
       name: req.body.name,
-      age: req.query.age ? Number(req.query.age) : null
+      age: req.query.age ? Number(req.query.age) : undefined
     }
   });
   res.status(200).json({ message: "User atualizado com sucesso!" });
@@ -73,7 +73,7 @@ app.delete('/usersss/:id', async (req, res) => {
 });
 
 // Porta dinâmica pro Railway
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`API rodando na porta ${PORT}`);
 });
