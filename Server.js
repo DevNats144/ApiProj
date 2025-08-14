@@ -73,7 +73,7 @@ app.delete('/usersss/:id', async (req, res) => {
 });
 
 // Porta dinâmica pro Railway
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`API rodando na porta ${PORT}`);
 });
