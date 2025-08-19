@@ -56,19 +56,23 @@ app.post("/userss", async (req, res) => {
 
 // Rota GET - buscar usuários
 app.get("/user", async (req, res) => {
-  let usuarios;
-  if (Object.keys(req.query).length > 0) {
-    usuarios = await prisma.user.findMany({
-      where: {
-        name: req.query.name,
-        email: req.query.email,
-        age: req.query.age ? Number(req.query.age) : undefined
-      }
-    });
-  } else {
-    usuarios = await prisma.user.findMany();
+  try {
+    let usuarios;
+    if (Object.keys(req.query).length > 0) {
+      usuarios = await prisma.user.findMany({
+        where: {
+          name: req.query.name,
+          email: req.query.email,
+          age: req.query.age ? Number(req.query.age) : undefined
+        }
+      });
+    } else {
+      usuarios = await prisma.user.findMany();
+    }
+    res.status(200).json(usuarios);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
   }
-  res.status(200).json(usuarios);
 });
 
 
