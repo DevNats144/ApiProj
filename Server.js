@@ -50,7 +50,9 @@ app.post("/userss", async (req, res) => {
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
-  console.log('Tipo de age:', typeof req.body.age, 'Valor:', req.body.age);
+  if (req.body && req.body.age !== undefined) {
+    console.log('Tipo de age:', typeof req.body.age, 'Valor:', req.body.age);
+  }
 });
 
 // Rota GET - buscar usuários
@@ -72,7 +74,9 @@ app.get("/user", async (req, res) => {
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
-  console.log('Tipo de age:', typeof req.body.age, 'Valor:', req.body.age);
+  if (req.query && req.query.age !== undefined) {
+    console.log('Tipo de age:', typeof req.query.age, 'Valor:', req.query.age);
+  }
 });
 
 
@@ -91,7 +95,9 @@ app.put('/users/:id', async (req, res) => {
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
-  console.log('Tipo de age:', typeof req.body.age, 'Valor:', req.body.age);
+  if (req.body && req.body.age !== undefined) {
+    console.log('Tipo de age:', typeof req.body.age, 'Valor:', req.body.age);
+  }
 });
 
 // Rota DELETE 
