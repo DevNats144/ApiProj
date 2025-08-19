@@ -10,11 +10,11 @@ app.use(express.urlencoded({ extended: true })); // Para parsear formulários
 // 2. Middleware de sanitização (ADICIONE AQUI)
 app.use((req, res, next) => {
   // Sanitiza query params (GET)
-  if (req.query.age) {
+  if (req.query && req.query.age !== undefined) {
     req.query.age = Number(req.query.age.toString().replace(/"/g, ''));
   }
   // Sanitiza body params (POST/PUT)
-  if (req.body?.age) {
+  if (req.body && req.body.age !== undefined) {
     req.body.age = Number(req.body.age.toString().replace(/"/g, ''));
   }
   next();
