@@ -10,11 +10,17 @@ app.use(express.urlencoded({ extended: true })); // Para parsear formulários
 // 2. Middleware de sanitização (ADICIONE AQUI)
 app.use((req, res, next) => {
   // Sanitiza query params (GET)
+  if (req.query.age) {
+    req.query.age = Number(req.query.age.toString().replace(/"/g, ''));
+  }
   // Sanitiza body params (POST/PUT)
+  if (req.body?.age) {
+    req.body.age = Number(req.body.age.toString().replace(/"/g, ''));
+  }
   next();
 });
 
-// CORS
+// CORS: permite seu site no Vercel
 const allowedOrigins = ["https://gitprojects.vercel.app"];
 app.use(cors({
   origin: (origin, callback) => {
@@ -29,13 +35,14 @@ app.get("/health", (req, res) => {
   res.send("ok");
 });
 
-// Rota POST
+// Rota POST - criar usuário
 app.post("/userss", async (req, res) => {
   try {
     await prisma.user.create({
       data: {
         email: req.body.email,
         name: req.body.name,
+        age: Number(req.body.age)
       }
       
     });
@@ -43,9 +50,7 @@ app.post("/userss", async (req, res) => {
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
-  if (req.body && req.body.age !== undefined) {
-    console.log('Tipo de age:', typeof req.body.age, 'Valor:', req.body.age);
-  }
+  console.log('Tipo de age:', typeof req.body.age, 'Valor:', req.body.age);
 });
 
 // Rota GET - buscar usuários
@@ -57,6 +62,7 @@ app.get("/user", async (req, res) => {
         where: {
           name: req.query.name,
           email: req.query.email,
+          age: req.query.age ? Number(req.query.age) : undefined
         }
       });
     } else {
@@ -66,13 +72,11 @@ app.get("/user", async (req, res) => {
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
-  if (req.query && req.query.age !== undefined) {
-    console.log('Tipo de age:', typeof req.query.age, 'Valor:', req.query.age);
-  }
+  console.log('Tipo de age:', typeof req.body.age, 'Valor:', req.body.age);
 });
 
 
-// Rota PUT 
+// Rota PUT - atualizar usuário
 app.put('/users/:id', async (req, res) => {
   try {
     await prisma.user.update({
@@ -80,18 +84,16 @@ app.put('/users/:id', async (req, res) => {
       data: {
         email: req.body.email,
         name: req.body.name,
+        age: Number(req.body.age)
       }
     });
     res.status(200).json({ message: "User atualizado com sucesso!" });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
-  if (req.body && req.body.age !== undefined) {
-    console.log('Tipo de age:', typeof req.body.age, 'Valor:', req.body.age);
-  }
 });
 
-// Rota DELETE 
+// Rota DELETE - deletar usuário
 app.delete('/usersss/:id', async (req, res) => {
   try {
     await prisma.user.delete({
@@ -101,10 +103,9 @@ app.delete('/usersss/:id', async (req, res) => {
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
-  console.log('Tipo de age:', typeof req.body.age, 'Valor:', req.body.age);
 });
 
-
+// Porta dinâmica pro Railway
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`API rodando na porta ${PORT}`);
