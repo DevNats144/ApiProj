@@ -10,13 +10,7 @@ app.use(express.urlencoded({ extended: true })); // Para parsear formulários
 // 2. Middleware de sanitização (ADICIONE AQUI)
 app.use((req, res, next) => {
   // Sanitiza query params (GET)
-  if (req.query && req.query.age !== undefined) {
-    req.query.age = Number(req.query.age.toString().replace(/"/g, ''));
-  }
   // Sanitiza body params (POST/PUT)
-  if (req.body && req.body.age !== undefined) {
-    req.body.age = Number(req.body.age.toString().replace(/"/g, ''));
-  }
   next();
 });
 
@@ -42,7 +36,6 @@ app.post("/userss", async (req, res) => {
       data: {
         email: req.body.email,
         name: req.body.name,
-        age: Number(req.body.age)
       }
       
     });
@@ -64,7 +57,6 @@ app.get("/user", async (req, res) => {
         where: {
           name: req.query.name,
           email: req.query.email,
-          age: req.query.age ? Number(req.query.age) : undefined
         }
       });
     } else {
@@ -88,7 +80,6 @@ app.put('/users/:id', async (req, res) => {
       data: {
         email: req.body.email,
         name: req.body.name,
-        age: Number(req.body.age)
       }
     });
     res.status(200).json({ message: "User atualizado com sucesso!" });
