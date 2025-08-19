@@ -44,8 +44,7 @@ app.post("/userss", async (req, res) => {
     data: {
       email: req.body.email,
       name: req.body.name,
-      age: req.query.age ? Number(req.query.age) : undefined
-    }
+   age: Number(req.body.age)    }
   });
   res.status(201).json({ message: "User criado com sucesso!" });
 });
@@ -58,7 +57,7 @@ app.get("/user", async (req, res) => {
       where: {
         name: req.query.name,
         email: req.query.email,
-        age: req.query.age ? Number(req.query.age) : undefined
+       age: Number(req.body.age)
       }
     });
   } else {
@@ -74,8 +73,8 @@ app.put('/users/:id', async (req, res) => {
     data: {
       email: req.body.email,
       name: req.body.name,
-      age: req.query.age ? Number(req.query.age) : undefined
-    }
+age: Number(req.body.age)    }
+
   });
   res.status(200).json({ message: "User atualizado com sucesso!" });
 });
