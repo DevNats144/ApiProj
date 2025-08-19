@@ -11,14 +11,12 @@ app.use(express.urlencoded({ extended: true })); // Para parsear formulários
 app.use((req, res, next) => {
   // Sanitiza query params (GET)
   if (req.query.age) {
-    req.query.age = parseInt(req.query.age.toString().replace(/"/g, ''), 10);
+    req.query.age = Number(req.query.age.toString().replace(/"/g, ''));
   }
-  
   // Sanitiza body params (POST/PUT)
   if (req.body?.age) {
-    req.body.age = parseInt(req.body.age.toString().replace(/"/g, ''), 10);
+    req.body.age = Number(req.body.age.toString().replace(/"/g, ''));
   }
-  
   next();
 });
 
@@ -33,7 +31,6 @@ app.use(cors({
   }
 }));
 
-// Health check (pra ver se está online)
 app.get("/health", (req, res) => {
   res.send("ok");
 });
