@@ -76,6 +76,8 @@ age: Number(req.body.age)    }
 
   });
   res.status(200).json({ message: "User atualizado com sucesso!" });
+} catch (error){
+  response.status(400).json({error: error.message})
 });
 
 // Rota DELETE - deletar usuário
@@ -83,7 +85,9 @@ app.delete('/usersss/:id', async (req, res) => {
   await prisma.user.delete({
     where: { id: Number(req.params.id) }
   });
+{
   res.status(200).json({ message: "User deletado com sucesso!" });
+}
 });
 
 // Porta dinâmica pro Railway
