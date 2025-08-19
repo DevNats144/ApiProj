@@ -20,7 +20,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// CORS: permite seu site no Vercel
+// CORS
 const allowedOrigins = ["https://gitprojects.vercel.app"];
 app.use(cors({
   origin: (origin, callback) => {
@@ -35,7 +35,7 @@ app.get("/health", (req, res) => {
   res.send("ok");
 });
 
-// Rota POST - criar usuário
+// Rota POST
 app.post("/userss", async (req, res) => {
   try {
     await prisma.user.create({
@@ -44,11 +44,13 @@ app.post("/userss", async (req, res) => {
         name: req.body.name,
         age: Number(req.body.age)
       }
+      
     });
     res.status(201).json({ message: "User criado com sucesso!" });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
+  console.log('Tipo de age:', typeof req.body.age, 'Valor:', req.body.age);
 });
 
 // Rota GET - buscar usuários
@@ -70,10 +72,11 @@ app.get("/user", async (req, res) => {
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
+  console.log('Tipo de age:', typeof req.body.age, 'Valor:', req.body.age);
 });
 
 
-// Rota PUT - atualizar usuário
+// Rota PUT 
 app.put('/users/:id', async (req, res) => {
   try {
     await prisma.user.update({
@@ -88,9 +91,10 @@ app.put('/users/:id', async (req, res) => {
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
+  console.log('Tipo de age:', typeof req.body.age, 'Valor:', req.body.age);
 });
 
-// Rota DELETE - deletar usuário
+// Rota DELETE 
 app.delete('/usersss/:id', async (req, res) => {
   try {
     await prisma.user.delete({
@@ -100,9 +104,10 @@ app.delete('/usersss/:id', async (req, res) => {
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
+  console.log('Tipo de age:', typeof req.body.age, 'Valor:', req.body.age);
 });
 
-// Porta dinâmica pro Railway
+
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`API rodando na porta ${PORT}`);
