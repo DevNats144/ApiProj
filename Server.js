@@ -7,9 +7,8 @@ const app = express();
 app.use(express.json()); // Para parsear JSON
 app.use(express.urlencoded({ extended: true })); // Para parsear formulários
 
-
 app.use((req, res, next) => {
-  // Sanitiza query params (GET)
+  // Sanitiza query params (GET
   if (req.query.age) {
     req.query.age = Number(req.query.age.toString().replace(/"/g, ''));
   }
@@ -22,6 +21,15 @@ app.use((req, res, next) => {
 
 // CORS: permite seu site no Vercel
 const allowedOrigins = ["https://gitprojects.vercel.app"];
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    return callback(new Error("Not allowed by CORS"));
+  }
+}));
+
 
 // Rota POST - criar usuário
 app.post("/userss", async (req, res) => {
@@ -50,8 +58,8 @@ app.get("/user", async (req, res) => {
       usuarios = await prisma.user.findMany({
         where: {
           name: req.query.name,
-          email: req.query.email,
-          age: req.query.age ? Number(req.query.age) : undefined
+          age: req.query.age ? Number(req.query.age) : undefined,
+          email: req.query.email
         }
       });
     } else {
@@ -71,12 +79,9 @@ app.put('/users/:id', async (req, res) => {
     await prisma.user.update({
       where: { id: req.params.id },
       data: {
-
-          name: req.body.name,
-          age: Number(req.body.age),
-          email: req.body.email
-       
-       
+        email: req.body.email,
+        name: req.body.name,
+        age: Number(req.body.age)
       }
     });
     res.status(200).json({ message: "User atualizado com sucesso!" });
