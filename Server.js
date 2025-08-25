@@ -7,7 +7,7 @@ const app = express();
 app.use(express.json()); // Para parsear JSON
 app.use(express.urlencoded({ extended: true })); // Para parsear formulários
 
-// 2. Middleware de sanitização (ADICIONE AQUI)
+
 app.use((req, res, next) => {
   // Sanitiza query params (GET)
   if (req.query.age) {
@@ -22,27 +22,16 @@ app.use((req, res, next) => {
 
 // CORS: permite seu site no Vercel
 const allowedOrigins = ["https://gitprojects.vercel.app"];
-app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
-      return callback(null, true);
-    }
-    return callback(new Error("Not allowed by CORS"));
-  }
-}));
-
-app.get("/health", (req, res) => {
-  res.send("ok");
-});
 
 // Rota POST - criar usuário
 app.post("/userss", async (req, res) => {
   try {
     await prisma.user.create({
       data: {
-        email: req.body.email,
+      
         name: req.body.name,
-        age: Number(req.body.age)
+        age: Number(req.body.age),
+        email: req.body.email
       }
       
     });
@@ -82,9 +71,12 @@ app.put('/users/:id', async (req, res) => {
     await prisma.user.update({
       where: { id: req.params.id },
       data: {
-        email: req.body.email,
-        name: req.body.name,
-        age: Number(req.body.age)
+
+          name: req.body.name,
+          age: Number(req.body.age)
+          email: req.body.email,
+       
+       
       }
     });
     res.status(200).json({ message: "User atualizado com sucesso!" });
