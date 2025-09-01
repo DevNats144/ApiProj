@@ -69,7 +69,7 @@ app.get("/user", async (req, res) => {
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
-  console.log('Tipo de age:', typeof req.body.age, 'Valor:', req.body.age);
+  console.log('Tipo de age:', typeof req.query.age, 'Valor:', req.query.age);
 });
 
 
@@ -77,7 +77,7 @@ app.get("/user", async (req, res) => {
 app.put('/users/:id', async (req, res) => {
   try {
     await prisma.user.update({
-      where: { id: req.params.id },
+      where: { id: Number (req.params.id)},
       data: {
 
         name: req.body.name,
