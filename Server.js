@@ -32,7 +32,7 @@ app.use(cors({
 
 
 // Rota POST - criar usuário
-app.post("/userss", async (req, res) => {
+app.post("/user", async (req, res) => {
   try {
     await prisma.user.create({
       data: {
@@ -74,7 +74,7 @@ app.get("/user", async (req, res) => {
 
 
 // Rota PUT - atualizar usuário
-app.put('/users/:id', async (req, res) => {
+app.put('/user/:id', async (req, res) => {
   try {
     await prisma.user.update({
       where: { id: Number (req.params.id)},
@@ -93,7 +93,7 @@ app.put('/users/:id', async (req, res) => {
 });
 
 // Rota DELETE - deletar usuário
-app.delete('/usersss/:id', async (req, res) => {
+app.delete('/user/:id', async (req, res) => {
   try {
     await prisma.user.delete({
       where: { id: Number(req.params.id) }
