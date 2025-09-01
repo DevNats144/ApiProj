@@ -58,7 +58,7 @@ app.get("/user", async (req, res) => {
       usuarios = await prisma.user.findMany({
         where: {
           name: req.query.name,
-          age: req.query.age ? Number(req.query.age) : undefined,
+    age: req.query.age ? parseInt(req.query.age.replace(/"/g, ""), 10) : undefined,
           email: req.query.email
         }
       });
