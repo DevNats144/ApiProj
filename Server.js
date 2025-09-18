@@ -19,17 +19,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// CORS: permite seu site no Vercel
-const allowedOrigins = ["https://gitprojects.vercel.app"];
-app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
-      return callback(null, true);
-    }
-    return callback(new Error("Not allowed by CORS"));
-  }
-}));
-
 
 // Rota POST - criar usuário
 app.post("/user", async (req, res) => {
