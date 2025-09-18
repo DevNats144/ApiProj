@@ -3,6 +3,7 @@ import cors from "cors";
 import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient();
 const app = express();
+app.use(cors());
 
 app.use(express.json()); // Para parsear JSON
 app.use(express.urlencoded({ extended: true })); // Para parsear formulários
