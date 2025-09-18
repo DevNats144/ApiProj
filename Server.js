@@ -39,6 +39,10 @@ app.post("/user", async (req, res) => {
   console.log('Tipo de age:', typeof req.body.age, 'Valor:', req.body.age);
 });
 
+app.get("/", (req, res) => {
+  res.send("API online!");
+});
+
 // Rota GET - buscar usuários
 app.get("/user", async (req, res) => {
   try {
