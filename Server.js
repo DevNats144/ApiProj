@@ -58,7 +58,7 @@ app.get("/user", async (req, res) => {
       usuarios = await prisma.user.findMany({
         where: {
           name: req.query.name,
-    age: req.query.age ? parseInt(req.query.age.replace(/"/g, ""), 10) : undefined,
+          age: req.query.age ? parseInt(req.query.age) : undefined,
           email: req.query.email
         }
       });
@@ -106,6 +106,6 @@ app.delete('/user/:id', async (req, res) => {
 
 // Porta dinâmica pro Railway
 const PORT = process.env.PORT || 8080;
-app.listen(PORT, "0.0.0.0", () => {
+app.listen(PORT, () => {
   console.log(`API rodando na porta ${PORT}`);
 });
