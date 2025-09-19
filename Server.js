@@ -52,7 +52,7 @@ app.get("/user", async (req, res) => {
       usuarios = await prisma.user.findMany({
         where: {
           name: req.query.name,
-          age: req.query.age ? parseInt(req.query.age) : undefined,
+          age: req.query.age ,
           email: req.query.email
         }
       });
@@ -75,7 +75,7 @@ app.put('/user/:id', async (req, res) => {
       data: {
 
         name: req.body.name,
-        age: Number(req.body.age),
+        age: (req.body.age),
         email: req.body.email
      
       }
