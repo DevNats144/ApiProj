@@ -47,25 +47,21 @@ app.get("/", (req, res) => {
 // Rota GET - buscar usuários
 app.get("/user", async (req, res) => {
   try {
-    let usuarios;
-    if (Object.keys(req.query).length > 0) {
-      usuarios = await prisma.user.findMany({
-        where: {
-          name: req.query.name,
-          age: req.query.age ,
-          email: req.query.email
-        }
-      });
-    } else {
-      usuarios = await prisma.user.findMany();
-    }
+    const filters = {};
+    if (req.query.name) filters.name = req.query.name;
+    if (req.query.age) filters.age = Number(req.query.age);
+    if (req.query.email) filters.email = req.query.email;
+
+    const usuarios = await prisma.user.findMany({
+      where: filters
+    });
+
     res.status(200).json(usuarios);
   } catch (error) {
+    console.error('Erro na rota /user:', error);
     res.status(400).json({ error: error.message });
   }
-  console.log('Tipo de age:', typeof req.query.age, 'Valor:', req.query.age);
 });
-
 
 // Rota PUT - atualizar usuário
 app.put('/user/:id', async (req, res) => {
