@@ -63,6 +63,7 @@ app.get("/user", async (req, res) => {
   }
 });
 
+
 // Rota PUT - atualizar usuário
 app.put('/user/:id', async (req, res) => {
   try {
