@@ -49,7 +49,14 @@ app.get("/user", async (req, res) => {
   try {
     const filters = {};
     if (req.query.name) filters.name = req.query.name;
-    if (req.query.age) filters.age = Number(req.query.age);
+    
+    if (req.query.age) {
+  const ageNumber = Number(req.query.age);
+  if (!isNaN(ageNumber)) {
+    filters.age = ageNumber;
+  }
+}
+
     if (req.query.email) filters.email = req.query.email;
 
     const usuarios = await prisma.user.findMany({
