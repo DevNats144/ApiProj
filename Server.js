@@ -25,7 +25,7 @@ app.post("/user", async (req, res) => {
     res.status(201).json(req.body);
 })
 
-app.get("/", (req, res) => {
+app.get("/user", (req, res) => {
   res.send("API online!");
 });
 
