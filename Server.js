@@ -24,22 +24,18 @@ app.use((req, res, next) => {
 
 // Rota POST - criar usuário
 app.post("/user", async (req, res) => {
-  try {
+  
     await prisma.user.create({
       data: {
       
         name: req.body.name,
-        age: Number(req.body.age),
+        age: req.body.age,
         email: req.body.email
-      }
+      },
       
     });
-    res.status(201).json({ message: "User criado com sucesso!" });
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-  console.log('Tipo de age:', typeof req.body.age, 'Valor:', req.body.age);
-});
+    res.status(201).json(req.body);
+})
 
 app.get("/", (req, res) => {
   res.send("API online!");
@@ -47,7 +43,7 @@ app.get("/", (req, res) => {
 
 // Rota GET - buscar usuários
 app.get("/user", async (req, res) => {
-  try {
+ 
     const filters = {};
     if (req.query.name) filters.name = req.query.name;
     
@@ -65,16 +61,13 @@ app.get("/user", async (req, res) => {
     });
 
     res.status(200).json(usuarios);
-  } catch (error) {
-    console.error('Erro na rota /user:', error);
-    res.status(400).json({ error: error.message });
-  }
+ 
 });
 
 
 // Rota PUT - atualizar usuário
 app.put('/user/:id', async (req, res) => {
-  try {
+  
     await prisma.user.update({
       where: { id: Number (req.params.id)},
       data: {
@@ -86,9 +79,7 @@ app.put('/user/:id', async (req, res) => {
       }
     });
     res.status(200).json({ message: "User atualizado com sucesso!" });
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
+ 
 });
 
 // Rota DELETE - deletar usuário
@@ -101,3 +92,4 @@ app.delete('/user/:id', async (req, res) => {
   
 });
 
+app.listen(3000)
