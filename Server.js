@@ -9,18 +9,6 @@ app.use(cors());
 app.use(express.json()); // Para parsear JSON
 app.use(express.urlencoded({ extended: true })); // Para parsear formulários
 
-app.use((req, res, next) => {
-  // Sanitiza query params (GET
-  if (req.query.age) {
-    req.query.age = Number(req.query.age.toString().replace(/"/g, ''));
-  }
-  // Sanitiza body params (POST/PUT)
-  if (req.body?.age) {
-    req.body.age = Number(req.body.age.toString().replace(/"/g, ''));
-  }
-  next();
-});
-
 
 // Rota POST - criar usuário
 app.post("/user", async (req, res) => {
@@ -44,20 +32,13 @@ app.get("/", (req, res) => {
 // Rota GET - buscar usuários
 app.get("/user", async (req, res) => {
  
-    const filters = {};
-    if (req.query.name) filters.name = req.query.name;
-    
-    if (req.query.age) {
-  const ageNumber = Number(req.query.age);
-  if (!isNaN(ageNumber)) {
-    filters.age = ageNumber;
-  }
-}
-
-    if (req.query.email) filters.email = req.query.email;
-
     const usuarios = await prisma.user.findMany({
-      where: filters
+      where: 
+      {
+        name: req.query.name,
+        age: req.query.age,
+        email: req.query.email
+      },   
     });
 
     res.status(200).json(usuarios);
@@ -73,7 +54,7 @@ app.put('/user/:id', async (req, res) => {
       data: {
 
         name: req.body.name,
-        age: (req.body.age),
+        age: req.body.age,
         email: req.body.email
      
       }
