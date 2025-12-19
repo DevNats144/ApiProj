@@ -1,12 +1,8 @@
 import express from "express";
 import cors from "cors";
-import { PrismaClient } from '@prisma/client'
-import { MongoDBAdapter } from '@prisma/adapter-mongodb'
-import { MongoClient } from 'mongodb'
 
-const client = new MongoClient(process.env.DATABASE_URL)
-const adapter = new MongoDBAdapter(client)
-const prisma = new PrismaClient({ adapter });
+import { PrismaClient } from '@prisma/client'
+const prisma = new PrismaClient();
 const app = express();
 app.use(cors());
 
@@ -97,18 +93,11 @@ app.put('/user/:id', async (req, res) => {
 
 // Rota DELETE - deletar usuário
 app.delete('/user/:id', async (req, res) => {
-  try {
+ 
     await prisma.user.delete({
       where: { id: Number(req.params.id) }
     });
     res.status(200).json({ message: "User deletado com sucesso!" });
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
+  
 });
 
-// Porta dinâmica pro Railway
-const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
-  console.log(`API rodando na porta ${PORT}`);
-});
