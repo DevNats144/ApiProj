@@ -5,18 +5,14 @@ generator client {
   binaryTargets = ["native", "windows", "debian-openssl-3.0.x"]
 }
 
-
-  datasource db {
+datasource db {
   provider = "mongodb"
-  url = env("DATABASE_URL")
+  url      = env("DATABASE_URL")
 }
-
 
 model User {
   id    String @id @default(auto()) @map("_id") @db.ObjectId
   name  String
-  age Int
+  age   Int
   email String @unique
-
 }
-
