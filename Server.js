@@ -74,4 +74,4 @@ app.delete("/user/:id", async (req, res) => {
   }
 });
 
-app.listen(3000, () => console.log("Servidor rodando na porta correta"));
+app.listen(3000);

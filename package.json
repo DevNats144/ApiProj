@@ -1,11 +1,12 @@
-  {
+{
   "name": "api",
   "version": "1.0.0",
   "type": "module",
   "main": "Server.js",
   "scripts": {
-  "start": "npx prisma generate && node Server.js"
-},
+    "start": "npx prisma generate && node Server.js",
+    "dev": "prisma generate && nodemon Server.js"
+  },
   "keywords": [],
   "author": "Nat's",
   "license": "ISC",
@@ -17,6 +18,7 @@
     "react-router-dom": "^7.8.0"
   },
   "devDependencies": {
+    "nodemon": "^3.1.14",
     "prisma": "^5.22.0"
   }
 }
