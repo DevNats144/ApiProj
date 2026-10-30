@@ -62,7 +62,7 @@ app.put("/user/:id", async (req, res) => {
   }
 });
 
-app.delete("/user/:id", async (req, res) => {
+app.delete("/users/:id", async (req, res) => {
   try {
     await prisma.user.delete({
       where: { id: Number(req.params.id) },
